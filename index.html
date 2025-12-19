@@ -449,8 +449,53 @@
     };
   }
 </script>
+    <script>
+  // 🧠 真正把 data-adapter 接入点名流程
+  document.addEventListener("DOMContentLoaded", function () {
+    const btn = document.getElementById("drawButton");
+    if (!btn) return;
+
+    btn.addEventListener("click", function () {
+      // ① 找到全局名单（不管它叫什么）
+      if (window.students && Array.isArray(window.students)) {
+        // ② 在点名前，统一清洗一次
+        window.students = adaptStudentData(window.students);
+      }
+    }, true); // 用捕获阶段，确保在原逻辑之前执行
+  });
+</script>
+ <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const btn = document.getElementById("drawButton");
+  const badge = document.getElementById("adapterBadge");
+  if (!btn) return;
+
+  btn.addEventListener("click", function () {
+    if (window.students && Array.isArray(window.students) &&
+        typeof adaptStudentData === "function") {
+
+      window.students = adaptStudentData(window.students);
+
+      // 👇 可见反馈
+      if (badge) {
+        badge.style.display = "block";
+        setTimeout(() => badge.style.display = "none", 1200);
+      }
+    }
+  }, true); // 捕获阶段，先于原逻辑
+});
+</script>
 </body>
+    <div id="adapterBadge"
+     style="position:fixed;bottom:12px;right:12px;
+            padding:6px 10px;border-radius:12px;
+            background:#ffd1dc;color:#d81b60;
+            font-size:12px;box-shadow:0 2px 8px rgba(0,0,0,.15);
+            display:none;z-index:9999;">
+  数据已清洗 ✓
+</div>
 </html>
+
 
 
 
