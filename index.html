@@ -468,9 +468,15 @@
 document.addEventListener("DOMContentLoaded", function () {
   const btn = document.getElementById("drawButton");
   const badge = document.getElementById("adapterBadge");
-  if (!btn) return;
+fileInput.addEventListener("change", function () {
+  setTimeout(function () {
+    if (window.students && Array.isArray(window.students) &&
+        typeof adaptStudentData === "function") {
 
-  btn.addEventListener("click", function () {
+      window.students = adaptStudentData(window.students);
+    }
+  }, 0);
+});
     if (window.students && Array.isArray(window.students) &&
         typeof adaptStudentData === "function") {
 
@@ -495,6 +501,7 @@ document.addEventListener("DOMContentLoaded", function () {
   数据已清洗 ✓
 </div>
 </html>
+
 
 
 
