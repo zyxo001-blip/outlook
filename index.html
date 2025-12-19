@@ -440,7 +440,17 @@
     <script src="assets/scripts/data-adapter.js"></script>
 <script src="main.js"></script> <!-- 或你原本的 JS -->
 </script>
+<script src="assets/scripts/data-adapter.js"></script>
+    <script>
+  // 🔧 兜底式数据接入（保证 data-adapter 真正被使用）
+  if (typeof adaptStudentData === "function") {
+    window.__adaptStudents = function (list) {
+      return adaptStudentData(list);
+    };
+  }
+</script>
 </body>
 </html>
+
 
 
