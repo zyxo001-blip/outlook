@@ -1,9 +1,19 @@
 /**
  * 数据适配层
- * 当前仅支持本地数组
- * 预留：文件 / 接口 / 智能分析
+ * 作用：统一处理学生名单来源与格式
  */
-function normalizeStudentList(list) {
-  if (!Array.isArray(list)) return [];
-  return list.map(n => n.trim());
+
+function normalizeStudentList(rawList) {
+  if (!Array.isArray(rawList)) return [];
+
+  return rawList
+    .map(name => String(name).trim())
+    .filter(name => name.length > 0);
+}
+
+/**
+ * 对外暴露的入口方法
+ */
+function adaptStudentData(rawList) {
+  return normalizeStudentList(rawList);
 }
